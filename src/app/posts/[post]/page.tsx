@@ -47,7 +47,7 @@ const PostPage = async ({ params }: { params: { post: string } }) => {
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen mt-12">
       <section className="w-full lg:w-3/4 mx-auto px-4 py-12 bg-white shadow-lg rounded-lg border border-gray-200">
         <h2 className="text-4xl font-bold text-center mb-4 text-gray-900">
           {post?.title}

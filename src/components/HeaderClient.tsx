@@ -9,6 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import LogIn from "@/server/login";
+import LogOut from "@/server/logout"; // Assuming you have a logout server function
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
@@ -30,7 +31,13 @@ const HeaderClient = (props: { user: User | null }) => {
     await LogIn(parseInt(id));
 
     setLoading(false);
+    router.refresh();
+  };
 
+  const handleLogout = async () => {
+    setLoading(true);
+    await LogOut();
+    setLoading(false);
     router.refresh();
   };
 
@@ -99,6 +106,13 @@ const HeaderClient = (props: { user: User | null }) => {
               .map((n) => n[0])
               .join("")}
           </div>
+          <button
+            onClick={handleLogout}
+            className="p-2 px-4 bg-red-500 text-white rounded-full font-bold hover:bg-red-600"
+            disabled={loading}
+          >
+            {loading ? "Logging out..." : "Log Out"}
+          </button>
         </div>
       )}
     </div>
