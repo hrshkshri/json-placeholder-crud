@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 import React, { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import CreatePost from "@/server/post";
+import { Post } from "@/lib/types";
 
 const Create = () => {
   const [loading, setLoading] = useState(false);

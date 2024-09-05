@@ -48,4 +48,8 @@ or
 yarn dev
 ```
 
+NOTE: copy the `.env.local.example` file to `.env.local` and add your own `JWT_SECRET_KEY`
+
+    JWT_SECRET_KEY=your_secret_key
+
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
