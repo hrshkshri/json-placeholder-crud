@@ -56,7 +56,7 @@ const PostPageServer = async ({ params }: { params: { post: string } }) => {
       comments={comments}
       user={user}
       postId={params.post}
-      editing={isEditing} // Pass editing prop conditionally
+      isEditing={isEditing}
     />
   );
 };
