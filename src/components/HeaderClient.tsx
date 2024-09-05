@@ -45,20 +45,22 @@ const HeaderClient = (props: { user: User | null }) => {
     <div className="flex justify-center items-center">
       {!props.user ? (
         <Dialog>
-          <DialogTrigger className="p-2 px-4 rounded-full bg-white font-bold focus:outline-none">
-            LogIn
+          <DialogTrigger className="p-3 px-6 rounded-full bg-white text-black font-bold border border-gray-300 shadow-sm hover:bg-gray-100 focus:outline-none">
+            Log In
           </DialogTrigger>
-          <DialogContent className="text-center sm:rounded-2xl w-fit px-20 py-10">
-            <DialogHeader className="mx-auto sm:rounded-2xl">
-              <DialogTitle className="text-xl font-bold">
-                LogIn to{" "}
-                <span className="text-amber-500">{`{CRUD} Placeholder`}</span>
+          <DialogContent className="text-center sm:rounded-2xl w-full max-w-md mx-auto bg-white shadow-lg border border-gray-200 p-8">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold text-gray-900 mb-4">
+                Log In to <span className="text-amber-500">{`CRUD App`}</span>
               </DialogTitle>
               <DialogDescription>
                 <form onSubmit={handleLogin}>
-                  <div className="flex flex-col mt-6">
-                    <label htmlFor="userId" className="my-4 text-black text-lg">
-                      Enter Your User Id
+                  <div className="flex flex-col mb-6">
+                    <label
+                      htmlFor="userId"
+                      className="text-lg font-medium text-gray-800"
+                    >
+                      Enter Your User ID
                     </label>
                     <input
                       id="userId"
@@ -66,18 +68,18 @@ const HeaderClient = (props: { user: User | null }) => {
                       type="number"
                       min={1}
                       max={10}
-                      required={true}
+                      required
                       placeholder="Enter Between 1 and 10"
-                      className="p-2 rounded-full focus:outline-none bg-lime-100 text-black"
+                      className="mt-2 p-3 rounded-full border border-gray-300 bg-gray-100 text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
                     />
                   </div>
-                  <div className="w-full">
+                  <div>
                     <button
                       disabled={loading}
                       type="submit"
-                      className="flex items-center mt-6 p-2 px-4 bg-amber-400 rounded-full text-black mx-auto hover:text-white font-bold hover:font-normal hover:bg-amber-500"
+                      className="flex items-center p-3 px-6 bg-amber-500 text-white rounded-full font-bold shadow-md hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500"
                     >
-                      {loading ? "Loggin..." : "LogIn"}
+                      {loading ? "Logging In..." : "Log In"}
                       {loading && <Loader2 className="ml-2 animate-spin" />}
                     </button>
                   </div>
