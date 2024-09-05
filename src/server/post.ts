@@ -9,7 +9,8 @@ const CreatePost = async (post: { title: string; body: string }) => {
     const res = await axios.post(`${BACKEND_URL}/posts`, post);
     console.log("Response from server:", res.data);
     return res.data;
-  } catch (error) {
+  } catch (error: any) {
+    // Type assertion to 'any'
     console.error(
       "Error creating post:",
       error.response?.data || error.message
@@ -27,7 +28,8 @@ export const UpdatePost = async (
     const res = await axios.patch(`${BACKEND_URL}/posts/${id}`, post);
     console.log("Response from server:", res.data);
     return res.data;
-  } catch (error) {
+  } catch (error: any) {
+    // Type assertion to 'any'
     console.error(
       "Error updating post:",
       error.response?.data || error.message
@@ -42,7 +44,8 @@ export const DeletePost = async (id: string | number) => {
     const res = await axios.delete(`${BACKEND_URL}/posts/${id}`);
     console.log("Response from server:", res.data);
     return res.data;
-  } catch (error) {
+  } catch (error: any) {
+    // Type assertion to 'any'
     console.error(
       "Error deleting post:",
       error.response?.data || error.message
