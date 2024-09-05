@@ -46,46 +46,52 @@ const page = async ({ params }: { params: { user: string } }) => {
   return (
     <main>
       <Navbar page={2} />
-      <section className="w-1/2 mx-auto mt-12 px-12">
-        <div className="flex items-center justify-between">
+      <section className="w-full lg:w-4/5 mx-auto mt-12 px-4">
+        <div className="flex flex-col md:flex-row items-center justify-between bg-white p-8 rounded-lg shadow-lg border border-amber-300">
           <img
-            width={300}
-            className="mr-3 rounded-full"
-            src={"/user.png"}
-            alt="person"
+            width={180}
+            className="mb-6 md:mb-0 rounded-full border border-amber-500"
+            src="/user.png"
+            alt="User Avatar"
           />
-          <div>
-            <h4 className="text-2xl font-bold text-amber-500"> {user?.name}</h4>
-            <span> {user?.username}</span>
+          <div className="text-center md:text-left md:ml-8">
+            <h4 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600 mb-2">
+              {user?.name}
+            </h4>
+            <span className="text-lg text-gray-600">{user?.username}</span>
 
-            <ul className="mt-6">
+            <ul className="mt-4 space-y-2">
               <li>
-                <b className="font-bold">Email: </b> {user?.email}
+                <b className="font-bold">Email:</b> {user?.email}
               </li>
               <li>
-                <b className="font-bold">Phone: </b> {user?.phone}
+                <b className="font-bold">Phone:</b> {user?.phone}
               </li>
               <li>
-                <b className="font-bold">Webaite: </b> {user?.website}
+                <b className="font-bold">Website:</b>{" "}
+                <a
+                  href={`https://${user?.website}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-amber-500 hover:underline"
+                >
+                  {user?.website}
+                </a>
               </li>
               <li>
-                <b className="font-bold">Company Name: </b> {user?.company.name}
+                <b className="font-bold">Company Name:</b> {user?.company.name}
               </li>
             </ul>
             <div className="mt-4">
-              <b className="font-bold">Address: </b>
-              {user?.address.city}
-              {user?.address.suite}
-              <br></br>
-              {user?.address.street}
-              {user?.address.zipcode}
+              <b className="font-bold">Address:</b>{" "}
+              {`${user?.address.suite}, ${user?.address.street}, ${user?.address.city}, ${user?.address.zipcode}`}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="w-4/5 mx-auto mt-24 mb-36">
-        <h2 className="text-3xl font-bold text-center mb-20 mt-12 text-amber-600">
+      <section className="w-full lg:w-4/5 mx-auto mt-24 mb-36">
+        <h2 className="text-4xl font-extrabold text-center my-12 text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600 tracking-wide drop-shadow-md">
           All Posts By {user?.name}
         </h2>
         <PostButtons posts={posts} authorIsUser={authorIsUser} />
