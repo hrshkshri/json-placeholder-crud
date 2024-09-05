@@ -30,24 +30,10 @@ const Create = () => {
     });
 
     const newPost = { id: res.id, title, body: content };
-    let posts = JSON.parse(localStorage.getItem("posts") || "[]");
-
-    // Check if post already exists
-    const existingPostIndex = posts.findIndex(
-      (post: Post) => post.id === res.id
-    );
-
-    if (existingPostIndex > -1) {
-      // Update existing post
-      posts[existingPostIndex] = newPost;
-    } else {
-      // Add new post
-      posts.push(newPost);
-    }
 
     // Save the new post locally because json placeholder doesn't persist data <<-- check console.log to see the new post -->>
 
-    localStorage.setItem("posts", JSON.stringify(posts));
+    localStorage.setItem("posts", JSON.stringify(newPost));
 
     setLoading(false);
     router.push("/posts/" + res.id);

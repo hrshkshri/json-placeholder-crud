@@ -1,6 +1,5 @@
 import axios from "axios";
 import { type Post, type User, type Comment } from "@/lib/types";
-import { MoveLeft } from "lucide-react";
 import CommentSection from "@/components/sections/CommentSection";
 import { verify } from "jsonwebtoken";
 import { cookies } from "next/headers";
@@ -17,6 +16,7 @@ const PostPageServer = async ({ params }: { params: { post: string } }) => {
   const cookieStore = cookies();
   const access_token = cookieStore.has(TOKEN_NAME);
   const token = cookieStore.get(TOKEN_NAME);
+
 
   try {
     const { data } = await axios(`${BACKEND_URL}/posts/${params.post}`);
@@ -46,6 +46,9 @@ const PostPageServer = async ({ params }: { params: { post: string } }) => {
     }
   }
 
+  // Determine if we should pass editing = true based on post ID
+  const isEditing = params.post === "102";
+
   return (
     <PostPageClient
       post={post}
@@ -53,6 +56,7 @@ const PostPageServer = async ({ params }: { params: { post: string } }) => {
       comments={comments}
       user={user}
       postId={params.post}
+      editing={isEditing} // Pass editing prop conditionally
     />
   );
 };

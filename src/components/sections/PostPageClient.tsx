@@ -11,26 +11,35 @@ const PostPageClient = ({
   author,
   comments,
   user,
-  postId
+  postId,
+  isEditing, // Added prop
 }: {
   post: Post | null;
   author: User | null;
   comments: Comment[];
   user: User | null;
   postId: string;
+  isEditing?: boolean; // Optional prop
 }) => {
   const [localPost, setLocalPost] = useState<Post | null>(null);
 
   useEffect(() => {
-    // Fallback to local storage if API call failed and post is not available
-    if (!post) {
-      const localPosts = JSON.parse(localStorage.getItem("posts") || "[]");
-      const foundPost = localPosts.find((p: Post) => p.id === parseInt(postId)) || null;
-      setLocalPost(foundPost);
+    if (isEditing) {
+      const editedPost = JSON.parse(
+        localStorage.getItem("editedPost") || "null"
+      );
+      setLocalPost(editedPost);
+    } else {
+      if (!post) {
+        const localPosts = JSON.parse(localStorage.getItem("posts") || "[]");
+        setLocalPost(localPosts);
+      } else {
+        setLocalPost(post);
+      }
     }
-  }, [post, postId]);
+  }, [post, postId, isEditing]);
 
-  const displayPost = post || localPost;
+  const displayPost = isEditing ? localPost : post || localPost;
 
   return (
     <main className="min-h-screen mt-12">
@@ -64,7 +73,7 @@ const PostPageClient = ({
         )}
       </section>
 
-      {displayPost && (
+      {displayPost && !isEditing && (
         <CommentSection comments={comments} user={user} postId={postId} />
       )}
 

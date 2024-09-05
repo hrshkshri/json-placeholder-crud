@@ -35,8 +35,11 @@ const EditForm = (props: { post: Post | null }) => {
       props.post.id
     );
 
+    const editedPost = {id: 102, title, body: content};
+    localStorage.setItem("editedPost", JSON.stringify(editedPost));
+
     setLoading(false);
-    router.push("/posts/" + props.post.id);
+    router.push("/posts/" + 102);
   };
 
   return (
