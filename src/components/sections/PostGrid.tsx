@@ -9,10 +9,13 @@ import axios from "axios";
 import { BACKEND_URL } from "@/components/constants/backend";
 
 const PostGrid = (props: { posts: Post[] }) => {
-  const allPosts = props.posts;
-  const last3Posts: Post[] = allPosts.slice(-3);
   const [displayedPosts, setDisplayedPosts] = useState<number>(9);
   const [photos, setPhotos] = useState<any[]>([]);
+
+  // Sort posts by 'created_at' to ensure latest posts are at the top
+  const allPosts = [...props.posts].sort((a, b) => b.id - a.id);
+
+  const last3Posts: Post[] = allPosts.slice(0, 3);
 
   useEffect(() => {
     const fetchPhotos = async () => {

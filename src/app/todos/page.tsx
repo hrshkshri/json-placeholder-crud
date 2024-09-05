@@ -33,11 +33,10 @@ const TodoPage = async () => {
     <main className="min-h-screen">
       <Navbar page={3} />
       {isLoggedIn ? (
-        <section className="w-4/5 mx-auto px-28 mb-32">
-          <h2 className="text-3xl font-bold text-center mb-20 mt-12 text-amber-600">
-            Your TodoLists
+        <section className="w-full lg:w-4/5 mx-auto px-4 lg:px-28 py-12">
+          <h2 className="text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600 mb-12">
+            Your Todo Lists
           </h2>
-
           <TodoLists todoList={todoList} />
         </section>
       ) : (

@@ -18,8 +18,8 @@ const Edit = async ({ params }: { params: { post: string } }) => {
     <main className="min-h-screen">
       <Navbar page={0} />
 
-      <section className="w-4/5 mx-auto px-20">
-        <h2 className="text-3xl font-bold text-center my-16 mt-12 text-amber-600">
+      <section className="w-full lg:w-3/4 mx-auto px-8 lg:px-20 py-12">
+        <h2 className="text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600 mb-12">
           Update Post
         </h2>
         <EditForm post={post} />

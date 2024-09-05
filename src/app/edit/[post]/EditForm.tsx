@@ -23,48 +23,53 @@ const EditForm = (props: { post: Post | null }) => {
     const content = formdata.get("content");
 
     if (typeof title !== "string" || typeof content !== "string") {
+      setLoading(false);
       return;
     }
 
     await UpdatePost(
       {
-        title: title,
+        title,
         body: content,
       },
-      props.post?.id
+      props.post.id
     );
 
     setLoading(false);
-
-    router.push("/");
+    router.push("/posts/" + props.post.id);
   };
+
   return (
-    <form onSubmit={handleSubmit} className="px-32 mb-36">
-      <div className="mx-auto w-full flex flex-col gap-6 my-10">
-        <label htmlFor="title" className="text-xl font-bold">
-          Enter Post Title
+    <form onSubmit={handleSubmit} className="space-y-12">
+      <div className="w-full flex flex-col gap-4">
+        <label htmlFor="title" className="text-lg font-semibold text-gray-700">
+          Post Title
         </label>
         <input
           type="text"
           name="title"
           id="title"
-          placeholder={props.post?.title}
+          defaultValue={props.post?.title || ""}
+          placeholder="Enter updated post title"
           required={true}
-          className="p-2 px-4 focus:outline-none bg-lime-100 text-black mr-4 rounded-full w-full"
+          className="p-3 rounded-lg text-black border border-gray-300 focus:ring-2 focus:ring-amber-500 transition-all w-full"
         />
       </div>
 
-      <div className="mx-auto w-full flex flex-col gap-6 my-10">
-        <label htmlFor="content" className="text-xl font-bold">
-          Enter Post Content
+      <div className="w-full flex flex-col gap-4">
+        <label
+          htmlFor="content"
+          className="text-lg font-semibold text-gray-700"
+        >
+          Post Content
         </label>
         <textarea
           name="content"
           id="content"
-          placeholder={props.post?.body}
-          className="p-2 px-4 focus:outline-none bg-lime-100 text-black mr-4 rounded-3xl w-full"
-          cols={30}
-          rows={10}
+          defaultValue={props.post?.body || ""}
+          placeholder="Enter updated post content"
+          className="p-3 rounded-lg text-black border border-gray-300 focus:ring-2 focus:ring-amber-500 transition-all w-full"
+          rows={8}
           required={true}
         ></textarea>
       </div>
@@ -72,10 +77,20 @@ const EditForm = (props: { post: Post | null }) => {
       <button
         disabled={loading}
         type="submit"
-        className="flex items-center p-2 px-4 bg-amber-400 w-fit mx-auto rounded-full text-black hover:text-white font-bold hover:font-normal hover:bg-amber-500"
+        className={`flex items-center justify-center p-3 rounded-full text-white font-bold transition-all ${
+          loading
+            ? "bg-amber-300 cursor-not-allowed"
+            : "bg-amber-500 hover:bg-amber-600"
+        } w-full lg:w-1/4 mx-auto`}
       >
-        {loading ? "Updating..." : "Update Post"}
-        {loading && <Loader2 className="ml-2 animate-spin" />}
+        {loading ? (
+          <>
+            Updating...
+            <Loader2 className="ml-2 animate-spin" />
+          </>
+        ) : (
+          "Update Post"
+        )}
       </button>
     </form>
   );

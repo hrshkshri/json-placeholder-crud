@@ -23,22 +23,36 @@ const TodoLists = (props: { todoList: Todo[] }) => {
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-8">
       {list.map((todo) => (
         <div
           key={todo.id}
-          className="flex items-center justify-between py-3 px-5 border border-amber-400 bg-gradient-to-r from-amber-200 via-gray-400 to-amber-100 rounded-full"
+          className={`flex items-center justify-between py-4 px-6 rounded-lg shadow-md border ${
+            todo.completed
+              ? "bg-amber-100 border-amber-300"
+              : "bg-white border-amber-500"
+          } transition-all duration-300`}
         >
           <div className="flex items-center gap-4">
             <input
               type="checkbox"
               onClick={() => handleCheck(todo.id)}
               checked={todo.completed}
+              className="w-5 h-5 text-amber-600 rounded-lg border-gray-300"
             />
-            <h5 className="text-xl font-bold">{todo.title}</h5>
+            <h5
+              className={`text-xl font-semibold ${
+                todo.completed ? "line-through text-gray-500" : "text-gray-900"
+              }`}
+            >
+              {todo.title}
+            </h5>
           </div>
-          <button onClick={() => handleDelete(todo.id)}>
-            <Trash2 size={18} className="ml-2 text-red-600" />
+          <button
+            onClick={() => handleDelete(todo.id)}
+            className="text-red-500 hover:text-red-700 transition-all duration-300"
+          >
+            <Trash2 size={20} />
           </button>
         </div>
       ))}

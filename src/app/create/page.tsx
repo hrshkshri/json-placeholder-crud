@@ -19,31 +19,35 @@ const Create = () => {
     const content = formdata.get("content");
 
     if (typeof title !== "string" || typeof content !== "string") {
+      setLoading(false);
       return;
     }
 
-    await CreatePost({
+    const res = await CreatePost({
       title,
       body: content,
     });
 
     setLoading(false);
-
-    router.push("/");
+    router.push("/posts/" + res.id);
   };
 
   return (
     <main className="min-h-screen">
       <Navbar page={0} />
 
-      <section className="w-4/5 mx-auto px-20">
-        <h2 className="text-3xl font-bold text-center my-16 mt-12 text-amber-600">
+      <section className="w-full lg:w-3/4 mx-auto px-8 lg:px-20 py-12">
+        <h2 className="text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600 mb-12">
           Create Post
         </h2>
-        <form onSubmit={handleSubmit} className="px-32 mb-36">
-          <div className="mx-auto w-full flex flex-col gap-6 my-10">
-            <label htmlFor="title" className="text-xl font-bold">
-              Enter Post Title
+
+        <form onSubmit={handleSubmit} className="mx-auto w-full space-y-12">
+          <div className="w-full flex flex-col gap-4">
+            <label
+              htmlFor="title"
+              className="text-lg font-semibold text-gray-700"
+            >
+              Post Title
             </label>
             <input
               type="text"
@@ -51,21 +55,23 @@ const Create = () => {
               id="title"
               placeholder="Enter Post Title"
               required={true}
-              className="p-2 px-4 focus:outline-none bg-lime-100 text-black mr-4 rounded-full w-full"
+              className="p-3 rounded-lg text-black border border-gray-300 focus:ring-2 focus:ring-amber-500 transition-all w-full"
             />
           </div>
 
-          <div className="mx-auto w-full flex flex-col gap-6 my-10">
-            <label htmlFor="content" className="text-xl font-bold">
-              Enter Post Content
+          <div className="w-full flex flex-col gap-4">
+            <label
+              htmlFor="content"
+              className="text-lg font-semibold text-gray-700"
+            >
+              Post Content
             </label>
             <textarea
               name="content"
               id="content"
               placeholder="Enter Post Content"
-              className="p-2 px-4 focus:outline-none bg-lime-100 text-black mr-4 rounded-3xl w-full"
-              cols={30}
-              rows={10}
+              className="p-3 rounded-lg text-black border border-gray-300 focus:ring-2 focus:ring-amber-500 transition-all w-full"
+              rows={8}
               required={true}
             ></textarea>
           </div>
@@ -73,10 +79,20 @@ const Create = () => {
           <button
             disabled={loading}
             type="submit"
-            className="flex items-center p-2 px-4 bg-amber-400 w-fit mx-auto rounded-full text-black hover:text-white font-bold hover:font-normal hover:bg-amber-500"
+            className={`flex items-center justify-center p-3 rounded-full text-white font-bold transition-all ${
+              loading
+                ? "bg-amber-300 cursor-not-allowed"
+                : "bg-amber-500 hover:bg-amber-600"
+            } w-full lg:w-1/4 mx-auto`}
           >
-            {loading ? "Creating..." : "+ Create Post"}
-            {loading && <Loader2 className="ml-2 animate-spin" />}
+            {loading ? (
+              <>
+                Creating...
+                <Loader2 className="ml-2 animate-spin" />
+              </>
+            ) : (
+              "+ Create Post"
+            )}
           </button>
         </form>
       </section>
