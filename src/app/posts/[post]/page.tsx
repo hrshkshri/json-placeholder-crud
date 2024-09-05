@@ -27,7 +27,6 @@ const PostPage = async ({ params }: { params: { post: string } }) => {
 
     if (access_token && token) {
       const { value } = token;
-
       const payload = verify(value, JWT_SECRET);
       if (typeof payload === "string") return;
 
@@ -49,36 +48,41 @@ const PostPage = async ({ params }: { params: { post: string } }) => {
 
   return (
     <main className="min-h-screen">
-      <section className="w-4/5 mx-auto mt-12">
-        <h2 className="text-3xl font-bold my-4">{post?.title}</h2>
-        <p className="my-2">
+      <section className="w-full lg:w-3/4 mx-auto px-4 py-12 bg-white shadow-lg rounded-lg border border-gray-200">
+        <h2 className="text-4xl font-bold text-center mb-4 text-gray-900">
+          {post?.title}
+        </h2>
+        <p className="text-center text-gray-600 mb-6">
           By{" "}
           <Link
-            className="text-amber-600 font-bold"
+            className="text-amber-600 font-bold hover:underline"
             href={`/users/${author?.id}`}
           >
             {author?.name}
           </Link>
         </p>
         <img
-          className="my-12"
+          className="w-full h-60 object-cover rounded-lg mb-6"
           src="https://picsum.photos/800/500"
-          alt="Lorem Picsum"
+          alt="Post Image"
         />
-        <p className="w-3/4">{post?.body}</p>
-        <div className="h-[1px] w-4/5 bg-black mt-12"></div>
+        <p className="text-lg text-gray-800 leading-relaxed mb-6">
+          {post?.body}
+        </p>
+        <div className="h-[1px] w-full bg-gray-300 my-6"></div>
       </section>
 
       <CommentSection comments={comments} user={user} postId={params.post} />
 
-      <Link
-        className="p-2 px-4 bg-amber-400 rounded-full mx-auto flex w-fit mt-10 mb-24 font-bold hover:font-normal hover:bg-amber-500 hover:text-white"
-        href={"/"}
-      >
-        {" "}
-        <MoveLeft className="mr-2" />
-        All Posts
-      </Link>
+      <div className="w-fit mx-auto mt-8 mb-24">
+        <Link
+          className="flex items-center p-3 px-6 bg-amber-500 text-white rounded-full font-bold shadow-md hover:shadow-lg hover:bg-amber-600 transition-all duration-300"
+          href={"/"}
+        >
+          <MoveLeft className="mr-2" />
+          All Posts
+        </Link>
+      </div>
     </main>
   );
 };
