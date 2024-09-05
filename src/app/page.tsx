@@ -14,7 +14,7 @@ export default async function Home() {
     console.error(error);
   }
   return (
-    <main className="flex">
+    <main className="flex bg-amber-100">
       <Navbar page={0} />
       <PostGrid posts={posts} />
     </main>

@@ -5,8 +5,9 @@ import { TOKEN_NAME, JWT_SECRET } from "@/components/constants/cookie";
 import { type User } from "@/lib/types";
 import axios from "axios";
 import { BACKEND_URL } from "./constants/backend";
+import { LayoutDashboard } from "lucide-react";
 
-const Header = async () => {
+const MainNavigation = async () => {
   let user: User | null = null;
   const cookieStore = cookies();
   const access_token = cookieStore.has(TOKEN_NAME);
@@ -27,13 +28,23 @@ const Header = async () => {
   }
 
   return (
-    <header className="bg-amber-400 w-full absolute top-0 z-50">
-      <div className="h-16 flex justify-between items-center w-4/5 mx-auto">
-        <h2 className="text-xl font-bold">{`{CRUD} Placeholder`}</h2>
+    <header className="bg-gradient-to-r from-amber-500 to-orange-400 w-full fixed top-0 z-50 shadow-md">
+      <div className="h-16 flex justify-between items-center w-11/12 lg:w-4/5 mx-auto">
+        {/* Brand/Logo */}
+        <div className="flex items-center space-x-3">
+          <div className="p-2 bg-white rounded-full shadow-sm">
+            <LayoutDashboard className="h-8 w-8 text-amber-600" /> {/* Icon */}
+          </div>
+          <h1 className="text-2xl font-extrabold text-white tracking-wide">
+            CRUD App
+          </h1>
+        </div>
+
+        {/* User Info/Navigation */}
         <HeaderClient user={user} />
       </div>
     </header>
   );
 };
 
-export default Header;
+export default MainNavigation;
